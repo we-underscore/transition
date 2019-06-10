@@ -6,9 +6,9 @@ import vertex from './vertex.glsl';
 
 
 let gallery = [
-  THREE.ImageUtils.loadTexture('img/img.jpg'),
-  THREE.ImageUtils.loadTexture('img/img1.jpg'),
-  THREE.ImageUtils.loadTexture('img/img2.jpg'),
+  THREE.ImageUtils.loadTexture('img/Bonbu_UndertheContruction02.jpg'),
+  THREE.ImageUtils.loadTexture('img/IMG_1727.JPG'),
+  THREE.ImageUtils.loadTexture('img/photo_2019-06-11_08-08-28.jpg'),
   THREE.ImageUtils.loadTexture('img/img3.jpg'),
   THREE.ImageUtils.loadTexture('img/img4.jpg')
 ];
