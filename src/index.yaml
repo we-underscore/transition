@@ -1,5 +1,5 @@
-ProjectTitle: ze
+ProjectTitle: underscore
 
 PageList:
-- file: page.html
-  ready: 50
+  - file: page.html
+    ready: 50
