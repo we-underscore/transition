@@ -1,9 +1,6 @@
 // import gwebpack from 'webpack';
 import gulp from 'gulp';
 import gulpWebpack from 'webpack-stream';
-import gutil from 'gulp-util';
-import notify from 'gulp-notify';
-import server from './server';
 import config from '../config';
 import webpackCfg from '../../webpack.config';
 

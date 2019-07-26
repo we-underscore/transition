@@ -1,6 +1,5 @@
 import gulp from 'gulp';
 import browserSync from 'browser-sync';
-import util from 'gulp-util';
 import config from '../config';
 
 const bsServer = browserSync.create();
@@ -23,15 +22,12 @@ const devServer = () =>
       `${config.dest.css}/*.css`,
       `${config.dest.img}/**/*`,
     ],
-    port: util.env.port || 8880,
+    port: 8880,
     logLevel: 'info', // 'debug', 'info', 'silent', 'warn'
     logConnections: false,
     logFileChanges: true,
-    open: Boolean(util.env.open),
     notify: false,
     ghostMode: false,
-    online: Boolean(util.env.tunnel),
-    tunnel: util.env.tunnel || null,
   });
 
 export const server = gulp.series(devServer);
