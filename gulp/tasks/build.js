@@ -1,27 +1,40 @@
-var gulp        = require('gulp');
-var runSequence = require('run-sequence');
-var config      = require('../config');
+import gulp from 'gulp';
+import config from '../config';
+import { clean } from './clean';
+import { sass } from './sass';
+import { nunjucks } from './nunjucks';
+import { webpack } from './webpack';
+import { copy } from './copy';
+import { listPages } from './index/index-page';
 
-function build(cb) {
-    runSequence(
-        'clean',
-        'sass',
-        'nunjucks',
-        'webpack',
-        'copy',
-        'list-pages',
-        cb
-    );
-}
+const production = resolve => {
+  config.setEnv('production');
+  config.logEnv();
+  resolve();
+};
 
-gulp.task('build', function(cb) {
-    config.setEnv('production');
-    config.logEnv();
-    build(cb);
-});
+const development = resolve => {
+  config.setEnv('development');
+  config.logEnv();
+  resolve();
+};
 
-gulp.task('build:dev', function(cb) {
-    config.setEnv('development');
-    config.logEnv();
-    build(cb);
-});
+export const build = gulp.series(
+  production,
+  clean,
+  sass,
+  nunjucks,
+  webpack,
+  copy,
+  listPages,
+);
+
+export const buildDev = gulp.series(
+  development,
+  clean,
+  sass,
+  nunjucks,
+  webpack,
+  copy,
+  listPages,
+);

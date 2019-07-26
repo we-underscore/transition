@@ -1,42 +1,56 @@
-var gulp          = require('gulp');
-var webpack       = require('webpack');
-var gutil         = require('gulp-util');
-var notify        = require('gulp-notify');
-var server        = require('./server');
-var config        = require('../config');
-var webpackConfig = require('../../webpack.config').createConfig;
+// import gwebpack from 'webpack';
+import gulp from 'gulp';
+import gulpWebpack from 'webpack-stream';
+import gutil from 'gulp-util';
+import notify from 'gulp-notify';
+import server from './server';
+import config from '../config';
+import webpackCfg from '../../webpack.config';
 
-function handler(err, stats, cb) {
-    var errors = stats.compilation.errors;
+const webpackConfig = webpackCfg.createConfig;
 
-    if (err) throw new gutil.PluginError('webpack', err);
+export const webpack = () =>
+  gulp
+    .src('src/js/app.js')
+    .pipe(gulpWebpack(webpackConfig(config.env)))
+    .pipe(gulp.dest('build/js'));
 
-    if (errors.length > 0) {
-        notify.onError({
-            title: 'Webpack Error',
-            message: '<%= error.message %>',
-            sound: 'Submarine'
-        }).call(null, errors[0]);
-    }
+export const webpackWatch = () => gulp.watch('src/js/*.js', webpack);
+// const handler = (err, stats, cb) => {
+//   const errors = stats.compilation.errors;
 
-    gutil.log('[webpack]', stats.toString({
-        colors: true,
-        chunks: false
-    }));
+//   if (err) throw new gutil.PluginError('webpack', err);
 
-    server.reload();
-    if (typeof cb === 'function') cb();
-}
+//   if (errors.length > 0) {
+//     notify
+//       .onError({
+//         title: 'Webpack Error',
+//         message: '<%= error.message %>',
+//         sound: 'Submarine',
+//       })
+//       .call(null, errors[0]);
+//   }
 
-gulp.task('webpack', function(cb) {
-    webpack(webpackConfig(config.env)).run(function(err, stats) {
-        handler(err, stats, cb);
-    });
-});
+//   gutil.log(
+//     '[webpack]',
+//     stats.toString({
+//       colors: true,
+//       chunks: false,
+//     }),
+//   );
 
-gulp.task('webpack:watch', function() {
-    webpack(webpackConfig(config.env)).watch({
-        aggregateTimeout: 100,
-        poll: false
-    }, handler);
-});
+//   server.reload();
+//   if (typeof cb === 'function') cb();
+// };
+
+// export const webpack = cb =>
+//   gwebpack(webpackConfig(config.env)).run();
+
+// export const webpackWatch = () =>
+//   gwebpack(webpackConfig(config.env)).watch(
+//     {
+//       aggregateTimeout: 100,
+//       poll: false,
+//     },
+//     handler,
+//   );

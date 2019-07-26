@@ -1,20 +1,36 @@
-var gulp        = require('gulp');
-var consolidate = require('gulp-consolidate');
-var config      = require('../../config');
-require('require-yaml');
+// var gulp = require('gulp');
+import gulp from 'gulp';
+import consolidate from 'gulp-consolidate';
+import config from '../../config';
+import 'require-yaml';
 
-gulp.task('list-pages', function() {
-	delete require.cache[require.resolve('../../../' + config.src.pagelist)]
-    var pages = require('../../../' + config.src.pagelist);
-    return gulp
-        .src(__dirname + '/index.html')
-        .pipe(consolidate('lodash', {
-            pages: pages
-        }))
-        .pipe(gulp.dest(config.dest.html));
-});
+// var consolidate = require('gulp-consolidate');
+// var config = require('../../config');
+// require('require-yaml');
+export const listPages = () => {
+  delete require.cache[require.resolve(`../../../${config.src.pagelist}`)];
+  const pages = require(`../../../${config.src.pagelist}`);
+  return gulp
+    .src(`${__dirname}/index.html`)
+    .pipe(consolidate('lodash', { pages: pages }))
+    .pipe(gulp.dest(config.dest.html));
+};
+export const listPagesWatch = () =>
+  gulp.watch(`${config.src.root}/*`, listPages);
 
-gulp.task('list-pages:watch', function() {
-    gulp.watch(config.src.root+'/*', ['list-pages']);
-});
+// gulp.task('list-pages', function() {
+//   delete require.cache[require.resolve('../../../' + config.src.pagelist)];
+//   var pages = require('../../../' + config.src.pagelist);
+//   return gulp
+//     .src(__dirname + '/index.html')
+//     .pipe(
+//       consolidate('lodash', {
+//         pages: pages,
+//       }),
+//     )
+//     .pipe(gulp.dest(config.dest.html));
+// });
 
+// gulp.task('list-pages:watch', function() {
+//   gulp.watch(config.src.root + '/*', ['list-pages']);
+// });

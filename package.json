@@ -8,10 +8,15 @@
   "scripts": {
     "ghpages": "git subtree push --prefix build origin gh-pages",
     "build": "gulp build --production",
-    "start": "gulp",
-    "precommit": "lint-staged",
+    "start": "gulp dev",
+    "deploy": "gulp deploy",
     "lint": "eslint --ignore-pattern 'src/js/lib/' --cache --format=node_modules/eslint-formatter-pretty src/js/",
     "lint-fix": "npm run lint -- --fix"
+  },
+  "husky": {
+    "hooks": {
+      "precommit": "lint-staged"
+    }
   },
   "lint-staged": {
     "src/templates/**/*.html": [
@@ -21,15 +26,12 @@
   "authors": "Coderiver <html@coderiver.com.ua>",
   "devDependencies": {
     "@babel/core": "^7.5.4",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/register": "^7.5.5",
     "acorn": "^6.2.0",
     "autoprefixer": "^9.6.1",
-    "babel-core": "^6.26.3",
     "babel-eslint": "^10.0.2",
     "babel-loader": "^8.0.6",
-    "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-runtime": "^6.26.0",
     "browser-sync": "^2.26.7",
     "css-mqpacker": "^7.0.0",
     "del": "^5.0.0",
@@ -45,6 +47,7 @@
     "gulp-consolidate": "^0.2.0",
     "gulp-filter": "^6.0.0",
     "gulp-front-matter": "^1.3.0",
+    "gulp-gh-pages": "^0.5.4",
     "gulp-git": "^2.9.0",
     "gulp-if": "^2.0.2",
     "gulp-include": "^2.4.1",
@@ -63,17 +66,25 @@
     "lint-staged": "^9.2.0",
     "lodash": "^4.17.14",
     "lost": "^8.3.1",
+    "node-sass": "^4.12.0",
     "postcss-csso": "^3.0.0",
     "require-dir": "^1.2.0",
     "require-yaml": "^0.0.1",
     "run-sequence": "^2.2.1",
     "webpack": "^4.35.3",
     "webpack-bundle-analyzer": "^3.3.2",
-    "webpack-glsl-loader": "^1.0.1"
+    "webpack-glsl-loader": "^1.0.1",
+    "webpack-stream": "^5.2.1"
   },
   "dependencies": {
     "gsap": "^2.1.3",
     "three": "^0.106.2",
     "three-orbit-controls": "^82.1.0"
-  }
+  },
+  "browserslist": [
+    "last 2 version",
+    "> 1%",
+    "maintained node versions",
+    "not dead"
+  ]
 }

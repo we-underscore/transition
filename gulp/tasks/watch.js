@@ -1,11 +1,14 @@
-var gulp   = require('gulp');
-var config = require('../config');
+import gulp from 'gulp';
+import { copyWatch } from './copy';
+import { nunjucksWatch } from './nunjucks';
+import { listPagesWatch } from './index/index-page';
+import { webpackWatch } from './webpack';
+import { sassWatch } from './sass';
 
-gulp.task('watch', 
-    ['copy:watch',
-    
-    'nunjucks:watch',
-    'list-pages:watch',
-    'webpack:watch',
-    'sass:watch'
+export const watch = gulp.parallel([
+  copyWatch,
+  nunjucksWatch,
+  listPagesWatch,
+  webpackWatch,
+  sassWatch,
 ]);
